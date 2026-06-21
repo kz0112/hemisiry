@@ -7,6 +7,7 @@ import { OrbitControls, Environment, ContactShadows } from "@react-three/drei"
 import * as THREE from "three"
 import { Atom as AtomIcon, RotateCw, Move3d } from "lucide-react"
 import { MOLECULES, ELEMENTS, type Molecule, type MoleculeId } from "./molecules"
+import { SKETCHFAB_MODELS, normalizeSketchfabUrl } from "./sketchfab"
 
 /* ----------------------------- single atom ----------------------------- */
 function AtomMesh({ el, pos }: { el: keyof typeof ELEMENTS; pos: [number, number, number] }) {
@@ -130,6 +131,10 @@ function MoleculeViewerInner({ id }: { id: MoleculeId }) {
   const [spin, setSpin] = useState(true)
   const usedElements = useMemo(() => Array.from(new Set(molecule.atoms.map((a) => a.el))), [molecule])
 
+  // Sketchfab сілтемесі қойылса — соны қолданамыз, болмаса ішкі 3D көрсеткіш.
+  const sketchfabUrl = useMemo(() => normalizeSketchfabUrl(SKETCHFAB_MODELS[id] ?? ""), [id])
+  const hasSketchfab = sketchfabUrl.length > 0
+
   return (
     <figure className="overflow-hidden rounded-2xl border border-border bg-card">
       <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-secondary/40 px-4 py-2.5">
@@ -144,24 +149,40 @@ function MoleculeViewerInner({ id }: { id: MoleculeId }) {
             <p className="text-[11px] text-muted-foreground">{molecule.geometry}</p>
           </div>
         </div>
-        <button
-          onClick={() => setSpin((s) => !s)}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5 text-[11px] font-medium text-foreground transition-colors hover:bg-secondary"
-        >
-          <RotateCw className={spin ? "size-3.5 text-primary" : "size-3.5"} />
-          {spin ? "Айналуды тоқтату" : "Айналдыру"}
-        </button>
+        {/* Айналдыру батырмасы тек ішкі 3D көрсеткіш үшін керек */}
+        {!hasSketchfab && (
+          <button
+            onClick={() => setSpin((s) => !s)}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-card px-2.5 py-1.5 text-[11px] font-medium text-foreground transition-colors hover:bg-secondary"
+          >
+            <RotateCw className={spin ? "size-3.5 text-primary" : "size-3.5"} />
+            {spin ? "Айналуды тоқтату" : "Айналдыру"}
+          </button>
+        )}
       </div>
 
-      <div className="relative h-64 w-full">
-        <Canvas shadows dpr={[1, 1.8]} camera={{ position: [0, 1.2, 5], fov: 45 }} gl={{ antialias: true }}>
-          <Scene molecule={molecule} spin={spin} />
-        </Canvas>
-        <div className="pointer-events-none absolute bottom-2 left-2 inline-flex items-center gap-1 rounded-md bg-card/80 px-2 py-1 text-[10px] text-muted-foreground backdrop-blur">
-          <Move3d className="size-3" />
-          Тінтуірмен айналдырыңыз
+      {hasSketchfab ? (
+        <div className="relative h-72 w-full bg-black">
+          <iframe
+            title={`${molecule.name} (${molecule.formula}) — 3D модель`}
+            src={sketchfabUrl}
+            className="h-full w-full"
+            frameBorder={0}
+            allow="autoplay; fullscreen; xr-spatial-tracking"
+            allowFullScreen
+          />
         </div>
-      </div>
+      ) : (
+        <div className="relative h-64 w-full">
+          <Canvas shadows dpr={[1, 1.8]} camera={{ position: [0, 1.2, 5], fov: 45 }} gl={{ antialias: true }}>
+            <Scene molecule={molecule} spin={spin} />
+          </Canvas>
+          <div className="pointer-events-none absolute bottom-2 left-2 inline-flex items-center gap-1 rounded-md bg-card/80 px-2 py-1 text-[10px] text-muted-foreground backdrop-blur">
+            <Move3d className="size-3" />
+            Тінтуірмен айналдырыңыз
+          </div>
+        </div>
+      )}
 
       {/* legend + info */}
       <div className="flex flex-col gap-2 px-4 py-3">
