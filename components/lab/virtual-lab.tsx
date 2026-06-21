@@ -117,11 +117,6 @@ function BeakerGlass() {
         <cylinderGeometry args={[0.56, 0.56, 0.04, 64]} />
         <meshPhysicalMaterial transparent opacity={0.3} roughness={0.05} transmission={0.9} color={GLASS_TINT} />
       </mesh>
-      {/* rim with pour spout */}
-      <mesh position={[0, 1.55, 0]}>
-        <torusGeometry args={[0.64, 0.028, 16, 64]} />
-        <meshStandardMaterial color="#bdeee6" roughness={0.15} metalness={0.1} />
-      </mesh>
       {/* graduation marks */}
       {ticks.map((y, i) => (
         <mesh key={i} position={[0.6, y, 0.18]} rotation={[0, -0.5, 0]}>

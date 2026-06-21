@@ -7,7 +7,7 @@ import { OrbitControls, Environment, ContactShadows } from "@react-three/drei"
 import * as THREE from "three"
 import { Atom as AtomIcon, RotateCw, Move3d } from "lucide-react"
 import { MOLECULES, ELEMENTS, type Molecule, type MoleculeId } from "./molecules"
-import { SKETCHFAB_MODELS, normalizeSketchfabUrl } from "./sketchfab"
+import { resolveSketchfabUrl } from "./sketchfab"
 
 /* ----------------------------- single atom ----------------------------- */
 function AtomMesh({ el, pos }: { el: keyof typeof ELEMENTS; pos: [number, number, number] }) {
@@ -126,13 +126,14 @@ function Scene({ molecule, spin }: { molecule: Molecule; spin: boolean }) {
   )
 }
 
-function MoleculeViewerInner({ id }: { id: MoleculeId }) {
+function MoleculeViewerInner({ id, lessonId }: { id: MoleculeId; lessonId?: string }) {
   const molecule = MOLECULES[id]
   const [spin, setSpin] = useState(true)
   const usedElements = useMemo(() => Array.from(new Set(molecule.atoms.map((a) => a.el))), [molecule])
 
   // Sketchfab сілтемесі қойылса — соны қолданамыз, болмаса ішкі 3D көрсеткіш.
-  const sketchfabUrl = useMemo(() => normalizeSketchfabUrl(SKETCHFAB_MODELS[id] ?? ""), [id])
+  // Алдымен осы САБАҚТЫҢ сілтемесін, болмаса молекула сілтемесін іздейді.
+  const sketchfabUrl = useMemo(() => resolveSketchfabUrl(lessonId, id), [lessonId, id])
   const hasSketchfab = sketchfabUrl.length > 0
 
   return (

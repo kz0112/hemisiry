@@ -124,11 +124,6 @@ function Beaker({
           side={THREE.DoubleSide}
         />
       </mesh>
-      {/* rim */}
-      <mesh position={[0, 1.5, 0]}>
-        <torusGeometry args={[0.62, 0.03, 16, 48]} />
-        <meshStandardMaterial color="#bdeee6" roughness={0.2} />
-      </mesh>
       {/* highlight ring on table */}
       <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.7, 0.85, 48]} />

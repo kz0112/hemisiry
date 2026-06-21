@@ -340,7 +340,7 @@ export function CourseView() {
                   <div className="mt-5">
                     <p className="mb-2 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground">
                       <Beaker className="size-4 text-primary" />
-                      Виртуалды зертхана — өзің тәжірибе жаса
+                      Ви��туалды зертхана — өзің тәжірибе жаса
                     </p>
                     <VirtualLab sim={sim} />
                   </div>
@@ -457,7 +457,7 @@ export function CourseView() {
           {/* 3D molecule for the lesson */}
           {lesson.molecule && (
             <div className="mt-4">
-              <MoleculeViewer id={lesson.molecule} />
+              <MoleculeViewer id={lesson.molecule} lessonId={lesson.id} />
             </div>
           )}
 
