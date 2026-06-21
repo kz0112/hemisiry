@@ -35,6 +35,8 @@ export type Lesson = {
   image?: string
   /** 3D molecule shown in the intro header */
   molecule?: MoleculeId
+  /** id of a related LabWork that has a virtual-lab simulation (see LAB_WORKS) */
+  lab?: string
   sections: Section[]
   questions: Question[]
 }
@@ -60,6 +62,7 @@ export const LESSONS: Lesson[] = [
     grade: 7,
     image: "/lessons/intro7.png",
     molecule: "water",
+    lab: "l7-2",
     title: "Химия пәніне кіріспе",
     emoji: "🔬",
     summary: "Таза заттар мен қоспалар",
@@ -132,7 +135,7 @@ export const LESSONS: Lesson[] = [
       {
         type: "text",
         heading: "Үш негізгі бөлшек",
-        body: "Ядрода оң зарядты протондар (+) және зарядсыз нейтрондар (0) орналасады. Ядроның айналасында теріс зарядты электрондар (−) зор жылдамдықпен қозғалады. Атом тұтасымен бейтарап, өйткені протондар саны электрондар санына тең.",
+        body: "Ядрода оң зарядты протондар (+) және зарядсыз нейтрондар (0) орналасады. Ядроның айналасында теріс зарядты электрондар (−) зор жылдамдықпен қозғалады. Атом тұтасыме�� бейтарап, өйткені протондар саны электрондар санына тең.",
       },
       {
         type: "example",
@@ -235,6 +238,7 @@ export const LESSONS: Lesson[] = [
     grade: 7,
     image: "/lessons/states.png",
     molecule: "water-cluster",
+    lab: "l7-5",
     title: "Заттың агрегаттық күйлері",
     emoji: "💧",
     summary: "Қатты, сұйық, газ",
@@ -288,6 +292,7 @@ export const LESSONS: Lesson[] = [
     grade: 7,
     image: "/lessons/phenomena7.png",
     molecule: "carbon-dioxide",
+    lab: "l7-3",
     title: "Физикалық және химиялық құбылыстар",
     emoji: "✨",
     summary: "Реакция белгілері",
@@ -341,6 +346,7 @@ export const LESSONS: Lesson[] = [
     grade: 7,
     image: "/lessons/air-oxygen7.png",
     molecule: "oxygen",
+    lab: "l7-6",
     title: "Ауа. Оттегі. Жану",
     emoji: "🔥",
     summary: "Оттегі мен жану үдерісі",
@@ -394,6 +400,7 @@ export const LESSONS: Lesson[] = [
     grade: 7,
     image: "/lessons/water7.png",
     molecule: "water",
+    lab: "l7-4",
     title: "Су. Ерітінділер",
     emoji: "🌊",
     summary: "Еру және ерітінді",
@@ -403,7 +410,7 @@ export const LESSONS: Lesson[] = [
       {
         type: "text",
         heading: "Су — әмбебап еріткіш",
-        body: "Су көп затты ерітеді, сондықтан оны «әмбебап еріткіш» деп атайды. Ерітінді екі бөліктен тұрады: еріткіш (көбіне су) және еритін зат (мыс. тұз, қант). Ерітінді — біртекті қоспа.",
+        body: "Су көп затты ерітеді, сондықтан оны «әмбебап еріткіш» деп атайды. Ерітінді екі бөліктен тұрады: еріткіш (кө��іне су) және еритін зат (мыс. тұз, қант). Ерітінді — біртекті қоспа.",
       },
       {
         type: "text",
@@ -447,6 +454,7 @@ export const LESSONS: Lesson[] = [
     grade: 7,
     image: "/lessons/acid.png",
     molecule: "hydrogen-chloride",
+    lab: "l7-7",
     title: "Қышқылдар мен негіздер",
     emoji: "🧪",
     summary: "Қасиеттері мен реакциясы",
@@ -507,6 +515,7 @@ export const LESSONS: Lesson[] = [
     grade: 7,
     image: "/lessons/ph.png",
     molecule: "hydrogen-chloride",
+    lab: "l7-8",
     title: "pH шкаласы",
     emoji: "📊",
     summary: "0-ден 14-ке дейін",
@@ -544,7 +553,7 @@ export const LESSONS: Lesson[] = [
         q: "pH = 2 болатын орта қандай?",
         options: ["Күшті сілтілі", "Бейтарап", "Күшті қышқыл", "Әлсіз сілтілі"],
         answer: 2,
-        explain: "pH 7-ден неғұрлым төмен болса, орта соғұрлым қышқыл. pH = 2 — күшті қышқыл орта.",
+        explain: "pH 7-ден неғұрлым төмен болса, орта ��оғұрлым қышқыл. pH = 2 — күшті қышқыл орта.",
       },
       {
         q: "Нейтралдау сәтті өткенде pH қандай болады?",
@@ -553,7 +562,7 @@ export const LESSONS: Lesson[] = [
         explain: "Қышқыл мен негіз тең мөлшерде әрекеттескенде орта бейтараптанады: pH ≈ 7.",
       },
       {
-        q: "pH 5-тен 4-ке өзгерсе, қышқылдық қалай өзгереді?",
+        q: "pH 5-тен 4-ке өзге��се, қышқылдық қалай өзгереді?",
         options: ["2 есе артады", "10 есе артады", "Өзгермейді", "10 есе кемиді"],
         answer: 1,
         explain: "pH шкаласы логарифмдік: бір бірлікке кему қышқылдықтың 10 есе артуын білдіреді.",
@@ -675,6 +684,7 @@ export const LESSONS: Lesson[] = [
     grade: 8,
     image: "/lessons/bond.png",
     molecule: "sodium-chloride",
+    lab: "l8-6",
     title: "Химиялық байланыс",
     emoji: "🔗",
     summary: "Ковалентті және иондық",
@@ -798,6 +808,7 @@ export const LESSONS: Lesson[] = [
     grade: 8,
     image: "/lessons/reactions.png",
     molecule: "water",
+    lab: "l8-1",
     title: "Химиялық реакция түрлері",
     emoji: "🧫",
     summary: "Қосылу, ыдырау, орынбасу",
@@ -851,6 +862,7 @@ export const LESSONS: Lesson[] = [
     grade: 8,
     image: "/lessons/classes8.png",
     molecule: "carbon-dioxide",
+    lab: "l8-2",
     title: "Бейорганикалық қосылыстар",
     emoji: "🗂",
     summary: "Оксид, қышқыл, негіз, тұз",
@@ -905,6 +917,7 @@ export const LESSONS: Lesson[] = [
     grade: 8,
     image: "/lessons/dissociation8.png",
     molecule: "sodium-chloride",
+    lab: "l8-6",
     title: "Электролиттік диссоциация",
     emoji: "💡",
     summary: "Иондар мен ток өткізгіштік",
@@ -959,6 +972,7 @@ export const LESSONS: Lesson[] = [
     grade: 8,
     image: "/lessons/redox.png",
     molecule: "hydrogen",
+    lab: "l8-3",
     title: "Тотығу-тотықсыздану",
     emoji: "🔥",
     summary: "Электрон алмасу",
@@ -968,7 +982,7 @@ export const LESSONS: Lesson[] = [
       {
         type: "text",
         heading: "Redox реакциясы",
-        body: "Тотығу-тотықсыздану (redox) реакцияларында электрондар бір заттан екіншісіне ауысады. Тотығу — электрон беру, тотықсыздану — электрон қосып алу. Бұл екеуі әрқашан қатар жүреді.",
+        body: "Тотығу-тотықсыздану (redox) реакцияларында электрондар бір затта�� екіншісіне ауысады. Тотығу — электрон беру, тотықсыздану — электрон қосып алу. Бұл екеуі әрқашан қатар жүреді.",
       },
       {
         type: "diagram",

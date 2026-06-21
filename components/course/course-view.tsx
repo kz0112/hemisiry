@@ -65,6 +65,11 @@ export function CourseView() {
     setStage("lab")
   }
 
+  const openLabById = (id: string) => {
+    const found = LAB_WORKS.find((l) => l.id === id)
+    if (found) openLab(found)
+  }
+
   const choose = (i: number) => {
     if (locked) return
     setSelected(i)
@@ -455,6 +460,37 @@ export function CourseView() {
               <MoleculeViewer id={lesson.molecule} />
             </div>
           )}
+
+          {/* related interactive virtual lab */}
+          {lesson.lab &&
+            (() => {
+              const relLab = LAB_WORKS.find((l) => l.id === lesson.lab)
+              const relSim = lesson.lab ? getSimForLab(lesson.lab) : null
+              if (!relLab || !relSim) return null
+              return (
+                <div className="mt-5 rounded-2xl border border-primary/20 bg-primary/5 p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <p className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                      <Beaker className="size-4" />
+                      Осы тақырыпқа виртуалды зертхана
+                    </p>
+                    <button
+                      onClick={() => openLabById(relLab.id)}
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-primary/30 bg-card px-3 py-1.5 text-xs font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                    >
+                      Толық нұсқаулық
+                      <ArrowRight className="size-3.5" />
+                    </button>
+                  </div>
+                  <p className="mt-1 text-pretty text-xs leading-relaxed text-foreground/70">
+                    {relLab.no} · {relLab.title}. Қадамдарды басып, шыны ыдыстағы өзгерістерді өзің бақыла.
+                  </p>
+                  <div className="mt-3">
+                    <VirtualLab sim={relSim} />
+                  </div>
+                </div>
+              )
+            })()}
 
           {/* reading sections */}
           <article className="mt-6 flex flex-col gap-5">
